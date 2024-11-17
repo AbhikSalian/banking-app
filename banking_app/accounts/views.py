@@ -2,7 +2,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .models import Account,Transaction
+from .models import Account,Transaction,BillPayment
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -38,3 +38,15 @@ def transfer_funds(request):
             
             return redirect('account_dashboard')
     return render(request, 'transfer_funds.html')
+def pay_bill(request):
+    if request.method == 'POST':
+        account = Account.objects.get(user=request.user)
+        amount = float(request.POST.get('amount'))
+        biller_name = request.POST.get('biller_name')
+        
+        if account.balance >= amount:
+            account.balance -= amount
+            account.save()
+            BillPayment.objects.create(account=account, biller_name=biller_name, amount=amount)
+            return redirect('account_dashboard')
+    return render(request, 'pay_bill.html')
