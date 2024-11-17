@@ -50,3 +50,8 @@ def pay_bill(request):
             BillPayment.objects.create(account=account, biller_name=biller_name, amount=amount)
             return redirect('account_dashboard')
     return render(request, 'pay_bill.html')
+
+def transaction_history(request):
+    account = Account.objects.get(user=request.user)
+    transactions = Transaction.objects.filter(account=account)
+    return render(request, 'transaction_history.html', {'transactions': transactions})
