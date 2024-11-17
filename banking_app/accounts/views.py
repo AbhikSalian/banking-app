@@ -2,7 +2,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-
+from .models import Account
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -13,5 +13,8 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
 
-def login_view(request):
-    # Handle login logic
+# def login_view(request):
+#     # Handle login logic
+def account_dashboard(request):
+    account = Account.objects.get(user=request.user)
+    return render(request, 'account_dashboard.html', {'account': account})
