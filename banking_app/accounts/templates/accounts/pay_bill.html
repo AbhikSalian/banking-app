@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="biller_name" placeholder="Biller Name" required>
+    <input type="number" name="amount" step="0.01" placeholder="Amount" required>
+    <button type="submit">Pay Bill</button>
+</form>

@@ -1,0 +1,6 @@
+<h3>Transaction History</h3>
+<ul>
+    {% for transaction in transactions %}
+        <li>{{ transaction.timestamp }} - {{ transaction.transaction_type }} - ${{ transaction.amount }} - Recipient: {{ transaction.recipient_account }}</li>
+    {% endfor %}
+</ul>
