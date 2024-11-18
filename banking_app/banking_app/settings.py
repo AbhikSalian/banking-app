@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vj0i*(5&xtj)orapi4_dam5b_k#v8j_wqyc6n!kgai6sdlbm6d'
+SECRET_KEY = 'django-insecure-qm&bnx%2y8o3_!bg5fqx#!7=b-d7$%kyz84pzz7yep#%1iqqqy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'banking',
 ]
 
 MIDDLEWARE = [
@@ -74,24 +73,12 @@ WSGI_APPLICATION = 'banking_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'banking_db',           # The name of your database
-        'USER': 'root',         # Your MySQL username
-        'PASSWORD': '',     # Your MySQL password
-        'HOST': 'localhost',
-        'PORT': '3307',                  # MySQL port if you've changed it
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 
 # Password validation
