@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'banking_db',           # The name of your database
         'USER': 'root',         # Your MySQL username
-        'PASSWORD': '',     # Your MySQL password
+        'PASSWORD': 'abhiksalian@123',     # Your MySQL password
         'HOST': 'localhost',
         'PORT': '3307',                  # MySQL port if you've changed it
     }
