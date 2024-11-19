@@ -25,7 +25,7 @@ class BillPayment(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     biller_name = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    due_date = models.DateField()
+    due_date = models.DateField(auto_now_add=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

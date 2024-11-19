@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Account, Transaction, BillPayment
-
+from decimal import Decimal
 def account_summary(request, account_id):
     account = Account.objects.get(id=account_id)
     return render(request, 'accounts/account_summary.html', {'account': account})
@@ -8,19 +8,26 @@ from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 
 def transfer_funds(request, account_id):
-    sender_account = get_object_or_404(Account, id=account_id)
+    sender_account = get_object_or_404(Account, id=account_id)  # Improved error handling
     if request.method == "POST":
-        recipient_number = request.POST['recipient_account']
-        amount = float(request.POST['amount'])
-        recipient_account = Account.objects.get(account_number=recipient_number)
-        
+        recipient_number = request.POST.get('recipient_account')
+        amount = float(request.POST.get('amount'))
+
+        # Improved error handling: check if recipient exists
+        try:
+            recipient_account = Account.objects.get(account_number=recipient_number)
+        except Account.DoesNotExist:
+            messages.error(request, "Recipient account not found.")
+            return redirect('transfer_funds', account_id=account_id)
+
         if sender_account.balance >= amount:
+            # Perform the transfer
             sender_account.balance -= amount
             recipient_account.balance += amount
             sender_account.save()
             recipient_account.save()
 
-            # Record transaction
+            # Record the transaction
             Transaction.objects.create(account=sender_account, recipient_account=recipient_number, amount=amount, transaction_type='Transfer')
             messages.success(request, "Transfer successful!")
         else:
@@ -33,7 +40,7 @@ def pay_bill(request, account_id):
     account = Account.objects.get(id=account_id)
     if request.method == "POST":
         biller_name = request.POST['biller_name']
-        amount = float(request.POST['amount'])
+        amount = Decimal(request.POST['amount'])  # Convert amount to Decimal
         
         if account.balance >= amount:
             account.balance -= amount

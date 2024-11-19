@@ -1,7 +1,28 @@
-<h2>Account Summary</h2>
-<p>Account Number: {{ account.account_number }}</p>
-<p>Balance: ${{ account.balance }}</p>
-<p>Account Type: {{ account.account_type }}</p>
-<a href="{% url 'transaction_history' account.id %}">Transaction History</a>
-<a href="{% url 'transfer_funds' account.id %}">Transfer Funds</a>
-<a href="{% url 'pay_bill' account.id %}">Pay Bill</a>
+<!-- Place this file in templates/accounts/account_summary.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Summary</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Account Summary</h1>
+        <div class="account-details">
+            <h2>Account Number: {{ account.account_number }}</h2>
+            <p>Account Type: {{ account.account_type }}</p>
+            <p>Balance: ${{ account.balance }}</p>
+        </div>
+        
+        <!-- Interactive buttons linking to different actions -->
+        <div class="action-buttons">
+            <a href="{% url 'transaction_history' account.id %}" class="button">Transaction History</a>
+            <a href="{% url 'transfer_funds' account.id %}" class="button">Transfer Funds</a>
+            <a href="{% url 'pay_bill' account.id %}" class="button">Pay Bill</a>
+        </div>
+    </div>
+</body>
+</html>
