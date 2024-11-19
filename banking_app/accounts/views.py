@@ -11,7 +11,7 @@ def transfer_funds(request, account_id):
     sender_account = get_object_or_404(Account, id=account_id)  # Improved error handling
     if request.method == "POST":
         recipient_number = request.POST.get('recipient_account')
-        amount = float(request.POST.get('amount'))
+        amount = Decimal(request.POST.get('amount'))
 
         # Improved error handling: check if recipient exists
         try:
